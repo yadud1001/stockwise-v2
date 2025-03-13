@@ -1,0 +1,68 @@
+body {
+    background-color: #3e4451;
+    display: flex; 
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0; 
+}
+
+nav {
+    padding: 20px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #61dafb;
+}
+
+.login-btn {
+    background-color: transparent;
+    color: #eee;
+    border: none;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+}
+
+.hero {
+    color: #eee;
+    padding: 100px 0;
+    text-align: center;
+    flex-grow: 1;
+}
+
+.hero-content {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.hero h1 {
+    font-size: 3em;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 1.2em;
+    margin-bottom: 30px;
+}
+
+.cta-button {
+    background-color: #61dafb;
+    color: #282c34;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1em;
+    cursor: pointer;
+}
+
+footer {
+    background-color: #282c34;
+    text-align: center;
+    padding: 15px 0;
+    color: #eee;
+    margin-bottom: 15px;
+}

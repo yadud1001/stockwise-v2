@@ -213,6 +213,60 @@
                 });
         }
 
+        function renderCustomerTable(customers) {
+            const tableBody = document.getElementById('customers-tbody');
+            tableBody.innerHTML = '';
+            customers.forEach(customer => {
+                let row = tableBody.insertRow();
+                row.innerHTML = `
+                    <td>${customer.name}</td>
+                    <td>
+                        <button class="update-button" data-name="${customer.name}">Update</button>
+                        <button class="delete-button" data-name="${customer.name}">Delete</button>
+                    </td>
+                `;
+            });
+            setupCustomerButtons();
+        }
+
+        function setupCustomerButtons() {
+            const updateButtons = document.querySelectorAll('.update-button');
+            const deleteButtons = document.querySelectorAll('.delete-button');
+
+            updateButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const oldName = button.dataset.name;
+                    
+                    showEditModal(oldName, 'customer'); 
+                });
+            });
+
+            deleteButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const name = button.dataset.name;
+                    if (confirm(`Are you sure you want to delete this customer?`)) {
+                        fetch('../../includes/admin_handlers/deleteCustomer.php', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({
+                                    name: name
+                                })
+                            })
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.error) {
+                                    console.error('Error deleting customer:', data.error);
+                                } else {
+                                    fetchCustomers();
+                                }
+                            });
+                    }
+                });
+            });
+        }
+
         //
         const modal = document.getElementById('editModal');
         const modalContent = document.getElementById('modalContent');

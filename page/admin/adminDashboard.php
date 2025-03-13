@@ -338,116 +338,98 @@
             });
         }
 
-
-        //
+        // Modal Functionality
         const modal = document.getElementById('editModal');
         const modalContent = document.getElementById('modalContent');
         const closeButton = modal.querySelector('.close');
 
-        function renderTable(sectionId, data, tableBodyId) {
-            const tableBody = document.getElementById(tableBodyId);
-            tableBody.innerHTML = '';
+        function showEditModal(data1 = '', data2 = '', data3 = '', type) {            
+            let modalTitle = type === 'product' ? 'Product' : 'History';
+            let label1 = type === 'product' ? 'Name of Product' : 'Date';
+            let label2 = type === 'product' ? 'Price' : 'History';
+            let inputType2 = type === 'product' ? 'number' : 'text'; 
+            let dataName = type === 'product' ? 'name-input' : 'date-input';
+            let dataPrice = type === 'product' ? 'price-input' : 'history-input';
+            let dataId = type === 'history' ? data3 : '';
 
-            data.forEach(item => {
-                let row = tableBody.insertRow();
-                if (sectionId === 'products') {
-                    row.innerHTML = `
-                        <td>${item.id}</td>
-                        <td>${item.name}</td>
-                        <td>$${item.price}</td>
-                        <td>${item.quantity}</td>
-                        <td><button class="update-button" data-product-id="${item.id}">Update</button></td>
-                    `;
-                } else if (sectionId === 'customers') {
-                    row.innerHTML = `
-                        <td>${item.id}</td>
-                        <td>${item.name}</td>
-                        <td><button class="update-button" data-customer-id="${item.id}">Update</button></td>
-                    `;
+            let editContent = `<h2 style="color: #4b515e">${data1 ? 'Edit ' + modalTitle : 'Add ' + modalTitle}</h2>`;
+            editContent += `<form id="${type}Form">
+                <label for="${dataName}" style="color: #4b515e">${label1}: </label>
+                <input type="text" id="${dataName}" placeholder="${label1}" value="${data1}" style="padding: 5px 10px; margin-right: 5px" required>
+                <label for="${dataPrice}" style="color: #4b515e">${label2}: </label>
+                <input type="${inputType2}" id="${dataPrice}" placeholder="${label2}" value="${data2}" style="padding: 5px 10px; margin-right: 5px" required>
+                ${type === 'product' ? `<div style="margin-top: 10px; display: flex; justify-content: center; align-items: center"><label for="quantity-input" style="color: #4b515e; margin-right: 5px">Quantity: </label><input type="number" id="quantity-input" placeholder="Quantity" value="${data3}" style="padding: 5px 10px" required></div>` : ''}
+                <button type="submit" id="save-btn" style="display: block; margin-top: 20px; padding: 8px 10px; background-color: #4b515e; color: white; border: none; cursor: pointer">${data1 ? 'Save Changes' : 'Add ' + modalTitle}</button>
+            </form>`;
+
+            modalContent.innerHTML = editContent;
+            modal.style.display = "block";
+
+            const form = document.getElementById(`${type}Form`);
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
+                let newData1 = document.getElementById(`${dataName}`).value;
+                let newData2 = document.getElementById(`${dataPrice}`).value;
+                let newData3 = type === 'product' ? document.getElementById('quantity-input').value : dataId;
+
+                let url = data1 ? `../../includes/customer_handlers/update${modalTitle}.php` : `../../includes/customer_handlers/add${modalTitle}.php`;
+                let data = {};
+                if (type === 'product') {
+                    data = data1 ? {
+                        oldName: data1,
+                        newName: newData1,
+                        price: newData2,
+                        quantity: newData3
+                    } : {
+                        name: newData1,
+                        price: newData2,
+                        quantity: newData3
+                    };
                 } else {
-                    row.innerHTML = `
-                        <td>${item.id}</td>
-                        <td>${item.date}</td>
-                        <td>${item.report}</td>
-                        <td><button class="update-button" data-report-id="${item.id}">Update</button></td>
-                    `;
+                    data = data1 ? {
+                        id: dataId,
+                        date: newData1,
+                        history: newData2
+                    } : {
+                        date: newData1,
+                        history: newData2
+                    };
                 }
-            });
 
-            // for the update button and edit modal
-            const updateButtons = document.querySelectorAll('.update-button');
-
-            updateButtons.forEach(button => {
-                button.addEventListener('click', function () {
-                    const itemId = this.dataset.productId || this.dataset.customerId || this.dataset.reportId;
-                    const section = this.closest('section');
-
-                    let editContent = `<h2 style="color: #4b515e">Edit `
-                                            if (section.id === 'inventory') {
-                                                editContent += `Product ${itemId}`;
-                                            } else if (section.id === 'customers') {
-                                                editContent += `Customer ${itemId}`;
-                                            } else {
-                                                editContent += `Report ${itemId}`;
-                                            }
-                                        editContent += `</h2>`;
-                    if(section.id === 'inventory'){
-                        editContent += `<form>
-                                            <input type="text" id="name-input" placeholder="Name of Product" style="padding: 5px 10px; margin-right: 5px">
-                                            <input type="number" id="price-input" placeholder="Price" style="padding: 5px 10px; margin-right: 5px">
-                                            <input type="number" id="quantity-input" placeholder="Quantity" style="padding: 5px 10px">
-                                            <button type="button" id="save-btn" data-item-id="${itemId}" style="margin-top: 20px; padding: 8px 10px; background-color: #4b515e; color: white; border: none; cursor: pointer">Save Changes</button>
-                                        </form>`;
-                    }else if (section.id === 'customers') {
-                        editContent += `<form>
-                                            <input type="text" id="customer-name-input" placeholder="Name of Customer" style="padding: 5px 10px">
-                                            <button type="button" id="save-btn" data-item-id="${itemId}" style="display: block; margin-top: 20px; padding: 8px 10px; background-color: #4b515e; color: white; border: none; cursor: pointer">Save Changes</button>
-                                        </form>`;
-                    } else {
-                        editContent += `<form>
-                                            <input type="text" id="date-input" placeholder="Date" style="padding: 5px 10px; margin-right: 5px">
-                                            <input type="text" id="report-input" placeholder="Sales Report" style="padding: 5px 10px;">
-                                            <button type="button" id="save-btn" data-item-id="${itemId}" style="display: block; margin-top: 20px; padding: 8px 10px; background-color: #4b515e; color: white; border: none; cursor: pointer">Save Changes</button>
-                                        </form>`;
-                    }
-
-                    modalContent.innerHTML = editContent; 
-                    modal.style.display = "block"; 
-
-                    // for save button functionality
-                    const saveButton = document.getElementById('save-btn');
-
-                    saveButton.addEventListener('click', () => {
-                        const modalSection = section;
-                        const itemId = saveButton.dataset.itemId;
-
-                        if (modalSection.id === 'inventory') {
-                            const newName = document.getElementById('name-input').value;
-                            const newPrice = document.getElementById('price-input').value;
-                            const newQuantity = document.getElementById('quantity-input').value;
-
-                            products = products.map(item => item.id == itemId ? { ...item, name: newName, price: newPrice, quantity: newQuantity } : item);
-                        } else if (modalSection.id === 'customers') {
-                            const newName = document.getElementById('customer-name-input').value;
-
-                            customers = customers.map(item => item.id == itemId ? { ...item, name: newName } : item);
+                fetch(url, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(data)
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.error) {
+                            console.error('Error saving ' + modalTitle + ':', data.error);
                         } else {
-                            const newDate = document.getElementById('date-input').value;
-                            const newReport = document.getElementById('report-input').value;
-
-                            reports = reports.map(item => item.id == itemId ? { ...item, date: newDate, report: newReport } : item);
+                            if (type === 'product') {
+                                fetchProducts();
+                            } else {
+                                fetchHistory();
+                            }
+                            modal.style.display = 'none';
                         }
-
-                        renderTables();
-                        modal.style.display = 'none';
                     });
-                });
             });
-        };
+        }
 
-        renderTables();
-            
-        // closing the edit modal
+        // Add Product Button
+        document.getElementById('addProductButton').addEventListener('click', () => {
+            showEditModal('', '', '', 'product');
+        });
+
+        // Add History Button
+        document.getElementById('addHistoryButton').addEventListener('click', () => {
+            showEditModal('', '', '', 'history');
+        });
+
+        // Closing the edit modal
         closeButton.addEventListener('click', () => {
             modal.style.display = "none";
         });
@@ -464,6 +446,9 @@
         logoutLink.addEventListener('click', function() {
             window.location.href = "../../login.php";
         });
+
+        fetchProducts();
+        fetchHistory();
     });
 </script>
 </html>

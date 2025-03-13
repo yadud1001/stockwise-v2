@@ -267,6 +267,78 @@
             });
         }
 
+        // Fetch and render sales reports
+        function fetchReports() {
+            fetch('../../includes/admin_handlers/getCustomer.php')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        console.error('Error fetching report:', data.error);
+                        return;
+                    }
+                    renderReportTable(data);
+                });
+        }
+
+        function renderReportTable(reports) {
+            const tableBody = document.getElementById('reports-tbody');
+            tableBody.innerHTML = '';
+            reports.forEach(item => {
+                let row = tableBody.insertRow();
+                row.innerHTML = `
+                    <td>${item.date}</td>
+                    <td>${item.report}</td>
+                    <td>
+                        <button class="update-button" data-id="${item.id}" data-date="${item.date}" data-history="${item.report}">Update</button>
+                        <button class="delete-button" data-id="${item.id}">Delete</button>
+                    </td>
+                `;
+            });
+            setupReportButtons();
+        }
+
+        // Setup update and delete buttons for sales reports
+        function setupReportButtons() {
+            const updateButtons = document.querySelectorAll('.update-button');
+            const deleteButtons = document.querySelectorAll('.delete-button');
+
+            updateButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const id = button.dataset.id;
+                    const date = button.dataset.date;
+                    const report = button.dataset.report;
+
+                    showEditModal(date, report, id, 'report');
+                });
+            });
+
+            deleteButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const id = button.dataset.id;
+                    if (confirm(`Are you sure you want to delete this sales report?`)) {
+                        fetch('../../includes/admin_handlers/deleteReport.php', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({
+                                    id: id
+                                })
+                            })
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.error) {
+                                    console.error('Error deleting sales report:', data.error);
+                                } else {
+                                    fetchReports();
+                                }
+                            });
+                    }
+                });
+            });
+        }
+
+
         //
         const modal = document.getElementById('editModal');
         const modalContent = document.getElementById('modalContent');

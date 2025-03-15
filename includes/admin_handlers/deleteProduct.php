@@ -6,7 +6,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
         require_once '../dbh-inc.php';
 
-        $query = "DELETE FROM inventory WHERE name = :name";
+        $query = "DELETE FROM admin_inventory WHERE name = :name";
 
         $stmt = $pdo->prepare($query);
         $stmt->bindParam(':name', $name);

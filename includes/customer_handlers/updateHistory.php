@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
         require_once '../dbh-inc.php';
 
-        $query = "UPDATE order_history SET date = :date, history = :history WHERE id = :id";
+        $query = "UPDATE customer_order_history SET date = :date, history = :history WHERE id = :id";
 
         $stmt = $pdo->prepare($query);
         $stmt->bindParam(':id', $id);

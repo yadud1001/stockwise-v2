@@ -2,7 +2,7 @@
 try {
     require_once '../dbh-inc.php';
 
-    $query = "SELECT name FROM customers;";
+    $query = "SELECT name FROM admin_customers;";
 
     $stmt = $pdo->query($query);
     $data = $stmt->fetchAll(PDO::FETCH_ASSOC);

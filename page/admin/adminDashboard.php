@@ -38,10 +38,11 @@
             <div class="main-content">
                 <h1>Inventory</h1>
 
+                <button id="addProductButton" class="add-button">Add Product</button>
+
                 <table class="data-table">
                     <thead>
                         <tr>
-                            <th>#</th>
                             <th>Name of Product</th>
                             <th>Price</th>
                             <th>Qnty</th>
@@ -56,11 +57,12 @@
         <section id="customers">
             <div class="main-content">
                 <h1>Customers</h1> 
+
+                <button id="addCustomerButton" class="add-button">Add Customer</button>
                 
                 <table class="data-table">
                     <thead>
                         <tr>
-                            <th>#</th>
                             <th>Name of Customer</th>
                             <th>Actions</th>
                         </tr>
@@ -73,11 +75,12 @@
         <section id="sales-reports">
             <div class="main-content">
                 <h1>Sales Reports</h1>
+                
+                <button id="addReportButton" class="add-button">Add Report</button>
 
                 <table class="data-table">
                     <thead>
                         <tr>
-                            <th>#</th>
                             <th>Date</th>
                             <th>Sales Reports</th>
                             <th>Actions</th>
@@ -131,7 +134,7 @@
 
         // Fetch and render inventory products
         function fetchProducts() {
-            fetch('../../includes/admin_handlers/getInventory.php')
+            fetch('../../includes/admin_handlers/getProduct.php')
                 .then(response => response.json())
                 .then(data => {
                     if (data.error) {
@@ -170,15 +173,17 @@
                     const oldName = button.dataset.name;
                     const price = button.dataset.price;
                     const quantity = button.dataset.quantity;
-                    showEditModal(oldName, price, quantity, 'product'); 
+                    showEditModal(oldName, price, quantity, 'product', 'edit'); 
                 });
             });
             
             deleteButtons.forEach(button => {
-                button.addEventListener('click', () => {
+                button.addEventListener('click', (event) => {
+                    event.stopPropagation();
+
                     const name = button.dataset.name;
                     if (confirm(`Are you sure you want to delete this product?`)) {
-                        fetch('../../includes/admin_handlers/deleteInventory.php', {
+                        fetch('../../includes/admin_handlers/deleteProduct.php', {
                                 method: 'POST',
                                 headers: {
                                     'Content-Type': 'application/json'
@@ -236,13 +241,14 @@
             updateButtons.forEach(button => {
                 button.addEventListener('click', () => {
                     const oldName = button.dataset.name;
-                    
-                    showEditModal(oldName, 'customer'); 
+                    showEditModal(oldName, '', '', 'customer', 'edit');
                 });
             });
 
             deleteButtons.forEach(button => {
-                button.addEventListener('click', () => {
+                button.addEventListener('click', (event) => {
+                    event.stopPropagation();
+                    
                     const name = button.dataset.name;
                     if (confirm(`Are you sure you want to delete this customer?`)) {
                         fetch('../../includes/admin_handlers/deleteCustomer.php', {
@@ -269,7 +275,7 @@
 
         // Fetch and render sales reports
         function fetchReports() {
-            fetch('../../includes/admin_handlers/getCustomer.php')
+            fetch('../../includes/admin_handlers/getReport.php')
                 .then(response => response.json())
                 .then(data => {
                     if (data.error) {
@@ -289,7 +295,7 @@
                     <td>${item.date}</td>
                     <td>${item.report}</td>
                     <td>
-                        <button class="update-button" data-id="${item.id}" data-date="${item.date}" data-history="${item.report}">Update</button>
+                        <button class="update-button" data-id="${item.id}" data-date="${item.date}" data-report="${item.report}">Update</button>
                         <button class="delete-button" data-id="${item.id}">Delete</button>
                     </td>
                 `;
@@ -308,12 +314,14 @@
                     const date = button.dataset.date;
                     const report = button.dataset.report;
 
-                    showEditModal(date, report, id, 'report');
+                    showEditModal(date, report, id, 'report', 'edit');
                 });
             });
 
             deleteButtons.forEach(button => {
-                button.addEventListener('click', () => {
+                button.addEventListener('click', (event) => {
+                    event.stopPropagation();
+
                     const id = button.dataset.id;
                     if (confirm(`Are you sure you want to delete this sales report?`)) {
                         fetch('../../includes/admin_handlers/deleteReport.php', {
@@ -343,23 +351,22 @@
         const modalContent = document.getElementById('modalContent');
         const closeButton = modal.querySelector('.close');
 
-        function showEditModal(data1 = '', data2 = '', data3 = '', type) {            
-            let modalTitle = type === 'product' ? 'Product' : 'History';
-            let label1 = type === 'product' ? 'Name of Product' : 'Date';
-            let label2 = type === 'product' ? 'Price' : 'History';
-            let inputType2 = type === 'product' ? 'number' : 'text'; 
-            let dataName = type === 'product' ? 'name-input' : 'date-input';
-            let dataPrice = type === 'product' ? 'price-input' : 'history-input';
-            let dataId = type === 'history' ? data3 : '';
+        function showEditModal(data1 = '', data2 = '', data3 = '', type, mode) {
+            let modalTitle = type === 'product' ? 'Product' : type === 'customer' ? 'Customer' : 'Report';
+            let label1 = type === 'product' ? 'Name of Product' : type === 'customer' ? 'Name' : 'Date';
+            let label2 = type === 'product' ? 'Price' : type === 'customer' ? '' : 'Report';
+            let inputType2 = type === 'product' ? 'number' : 'text';
+            let dataName = type === 'product' ? 'name-input' : type === 'customer' ? 'name-input' : 'date-input';
+            let dataPrice = type === 'product' ? 'price-input' : type === 'customer' ? '' : 'report-input';
+            let dataId = type === 'report' ? data3 : '';
 
-            let editContent = `<h2 style="color: #4b515e">${data1 ? 'Edit ' + modalTitle : 'Add ' + modalTitle}</h2>`;
+            let editContent = `<h2 style="color: #4b515e">${mode === 'edit' ? 'Edit ' + modalTitle : 'Add ' + modalTitle}</h2>`;
             editContent += `<form id="${type}Form">
                 <label for="${dataName}" style="color: #4b515e">${label1}: </label>
                 <input type="text" id="${dataName}" placeholder="${label1}" value="${data1}" style="padding: 5px 10px; margin-right: 5px" required>
-                <label for="${dataPrice}" style="color: #4b515e">${label2}: </label>
-                <input type="${inputType2}" id="${dataPrice}" placeholder="${label2}" value="${data2}" style="padding: 5px 10px; margin-right: 5px" required>
+                ${(type === 'product' || type === 'report') && label2 ? `<label for="${dataPrice}" style="color: #4b515e">${label2}: </label><input type="${inputType2}" id="${dataPrice}" placeholder="${label2}" value="${data2}" style="padding: 5px 10px; margin-right: 5px" required>` : ''}
                 ${type === 'product' ? `<div style="margin-top: 10px; display: flex; justify-content: center; align-items: center"><label for="quantity-input" style="color: #4b515e; margin-right: 5px">Quantity: </label><input type="number" id="quantity-input" placeholder="Quantity" value="${data3}" style="padding: 5px 10px" required></div>` : ''}
-                <button type="submit" id="save-btn" style="display: block; margin-top: 20px; padding: 8px 10px; background-color: #4b515e; color: white; border: none; cursor: pointer">${data1 ? 'Save Changes' : 'Add ' + modalTitle}</button>
+                <button type="submit" id="save-btn" style="display: block; margin-top: 20px; padding: 8px 10px; background-color: #4b515e; color: white; border: none; cursor: pointer">${mode === 'edit' ? 'Save Changes' : 'Add ' + modalTitle}</button>
             </form>`;
 
             modalContent.innerHTML = editContent;
@@ -369,86 +376,66 @@
             form.addEventListener('submit', function(event) {
                 event.preventDefault();
                 let newData1 = document.getElementById(`${dataName}`).value;
-                let newData2 = document.getElementById(`${dataPrice}`).value;
-                let newData3 = type === 'product' ? document.getElementById('quantity-input').value : dataId;
+                let newData2 = type === 'product' || type === 'report' ? document.getElementById(`${dataPrice}`).value : '';                let newData3 = type === 'product' ? document.getElementById('quantity-input').value : dataId;
 
-                let url = data1 ? `../../includes/customer_handlers/update${modalTitle}.php` : `../../includes/customer_handlers/add${modalTitle}.php`;
+                let url = data1 ? `../../includes/admin_handlers/update${modalTitle}.php` : `../../includes/admin_handlers/add${modalTitle}.php`;
                 let data = {};
                 if (type === 'product') {
-                    data = data1 ? {
-                        oldName: data1,
-                        newName: newData1,
-                        price: newData2,
-                        quantity: newData3
-                    } : {
-                        name: newData1,
-                        price: newData2,
-                        quantity: newData3
-                    };
-                } else {
-                    data = data1 ? {
-                        id: dataId,
-                        date: newData1,
-                        history: newData2
-                    } : {
-                        date: newData1,
-                        history: newData2
-                    };
+                    data = data1 ? { oldName: data1, newName: newData1, price: newData2, quantity: newData3 } : { name: newData1, price: newData2, quantity: newData3 };
+                } else if (type === 'customer') {
+                    data = data1 ? { oldName: data1, newName: newData1 } : { name: newData1 };
+                } else if (type === 'report') {
+                    data = data1 ? { id: parseInt(dataId), date: newData1, report: newData2 } : { date: newData1, report: newData2 };
                 }
 
                 fetch(url, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify(data)
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.error) {
-                            console.error('Error saving ' + modalTitle + ':', data.error);
-                        } else {
-                            if (type === 'product') {
-                                fetchProducts();
-                            } else {
-                                fetchHistory();
-                            }
-                            modal.style.display = 'none';
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        console.error('Error saving ' + modalTitle + ':', data.error);
+                    } else {
+                        if (type === 'product') {
+                            fetchProducts();
+                        } else if (type === 'customer') {
+                            fetchCustomers();
+                        } else if (type === 'report') {
+                            fetchReports();
                         }
-                    });
+                        modal.style.display = 'none';
+                    }
+                });
             });
         }
 
-        // Add Product Button
+        // --- Add Buttons ---
         document.getElementById('addProductButton').addEventListener('click', () => {
-            showEditModal('', '', '', 'product');
+            showEditModal('', '', '', 'product', 'add');
+        });
+        document.getElementById('addCustomerButton').addEventListener('click', () => {
+            showEditModal('', '', '', 'customer', 'add');
+        });
+        document.getElementById('addReportButton').addEventListener('click', () => {
+            showEditModal('', '', '', 'report', 'add');
         });
 
-        // Add History Button
-        document.getElementById('addHistoryButton').addEventListener('click', () => {
-            showEditModal('', '', '', 'history');
-        });
-
-        // Closing the edit modal
+        // --- Close Modal ---
         closeButton.addEventListener('click', () => {
             modal.style.display = "none";
         });
-
         window.addEventListener('click', (event) => {
             if (event.target == modal) {
                 modal.style.display = "none";
             }
         });
 
-        // for logout functionality
-        const logoutLink = document.querySelector('.logout-link');
-
-        logoutLink.addEventListener('click', function() {
-            window.location.href = "../../login.php";
-        });
-
+        // --- Initial Data Fetch ---
         fetchProducts();
-        fetchHistory();
+        fetchCustomers();
+        fetchReports();
     });
 </script>
 </html>

@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
         require_once '../dbh-inc.php';
 
-        $query = "DELETE FROM sales_reports WHERE id = :id";
+        $query = "DELETE FROM admin_sales_reports WHERE id = :id";
 
         $stmt = $pdo->prepare($query);
         $stmt->bindParam(':id', $id);

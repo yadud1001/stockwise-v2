@@ -2,7 +2,7 @@
 try {
     require_once '../dbh-inc.php';
 
-    $query = "SELECT name, price, quantity FROM products;";
+    $query = "SELECT name, price, quantity FROM customer_products;";
 
     $stmt = $pdo->query($query);
     $data = $stmt->fetchAll(PDO::FETCH_ASSOC);

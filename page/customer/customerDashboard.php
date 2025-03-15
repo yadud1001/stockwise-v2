@@ -36,7 +36,9 @@
         <section id="products">
             <div class="main-content">
                 <h1>Products Purchased</h1>
+
                 <button id="addProductButton" class="add-button">Add Product</button>
+
                 <table class="data-table">
                     <thead>
                         <tr>
@@ -54,7 +56,9 @@
         <section id="history">
             <div class="main-content">
                 <h1>Order History</h1>
+
                 <button id="addHistoryButton" class="add-button">Add History</button>
+                
                 <table class="data-table">
                     <thead>
                         <tr>

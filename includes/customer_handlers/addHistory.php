@@ -7,7 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
         require_once '../dbh-inc.php';
 
-        $query = "INSERT INTO order_history (date, history) VALUES (:date, :history);";
+        $query = "INSERT INTO customer_order_history (date, history) VALUES (:date, :history);";
 
         $stmt = $pdo->prepare($query);
         $stmt->bindParam(':date', $date);

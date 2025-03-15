@@ -7,7 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
         require_once '../dbh-inc.php';
 
-        $query = "UPDATE customers SET name = :newName WHERE name = :oldName";
+        $query = "UPDATE admin_customers SET name = :newName WHERE name = :oldName";
 
         $stmt = $pdo->prepare($query);
         $stmt->bindParam(':oldName', $oldName);

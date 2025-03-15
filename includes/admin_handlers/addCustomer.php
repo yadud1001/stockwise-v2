@@ -6,7 +6,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
         require_once '../dbh-inc.php';
 
-        $query = "INSERT INTO customers (name) VALUES (:name);";
+        $query = "INSERT INTO admin_customers (name) VALUES (:name);";
 
         $stmt = $pdo->prepare($query);
         $stmt->bindParam(':name', $name);

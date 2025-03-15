@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
         require_once '../dbh-inc.php';
 
-        $query = "INSERT INTO products (name, price, quantity) VALUES (:name, :price, :quantity);";
+        $query = "INSERT INTO customer_products (name, price, quantity) VALUES (:name, :price, :quantity);";
 
         $stmt = $pdo->prepare($query);
         $stmt->bindParam(':name', $name);

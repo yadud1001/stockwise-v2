@@ -2,7 +2,7 @@
 try {
     require_once '../dbh-inc.php';
 
-    $query = "SELECT id, date, history FROM order_history;";
+    $query = "SELECT id, date, history FROM customer_order_history;";
 
     $stmt = $pdo->query($query);
     $data = $stmt->fetchAll(PDO::FETCH_ASSOC);

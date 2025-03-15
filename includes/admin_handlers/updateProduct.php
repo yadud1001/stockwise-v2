@@ -1,17 +1,19 @@
 <?php
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $data = json_decode(file_get_contents('php://input'), true);
-    $name = $data['name'];
+    $oldName = $data['oldName'];
+    $newName = $data['newName'];
     $price = $data['price'];
     $quantity = $data['quantity'];
 
     try {
         require_once '../dbh-inc.php';
 
-        $query = "INSERT INTO inventory (name, price, quantity) VALUES (:name, :price, :quantity);";
+        $query = "UPDATE admin_inventory SET name = :newName, price = :price, quantity = :quantity WHERE name = :oldName";
 
         $stmt = $pdo->prepare($query);
-        $stmt->bindParam(':name', $name);
+        $stmt->bindParam(':oldName', $oldName);
+        $stmt->bindParam(':newName', $newName);
         $stmt->bindParam(':price', $price);
         $stmt->bindParam(':quantity', $quantity);
         $stmt->execute();

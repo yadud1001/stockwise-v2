@@ -7,7 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
         require_once '../dbh-inc.php';
 
-        $query = "INSERT INTO sales_reports (date, report) VALUES (:date, :report);";
+        $query = "INSERT INTO admin_sales_reports (date, report) VALUES (:date, :report);";
 
         $stmt = $pdo->prepare($query);
         $stmt->bindParam(':date', $date);

@@ -2,7 +2,7 @@
 try {
     require_once '../dbh-inc.php';
 
-    $query = "SELECT id, date, report FROM sales_reports;";
+    $query = "SELECT id, date, report FROM admin_sales_reports;";
 
     $stmt = $pdo->query($query);
     $data = $stmt->fetchAll(PDO::FETCH_ASSOC);

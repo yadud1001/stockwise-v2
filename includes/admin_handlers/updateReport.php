@@ -2,7 +2,7 @@
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $data = json_decode(file_get_contents('php://input'), true);
 
-    if (!isset($data['id']) || !isset($data['date']) || !isset($data['history'])) {
+    if (!isset($data['id']) || !isset($data['date']) || !isset($data['report'])) {
         echo json_encode(['error' => 'ID, date, and report are required.']);
         exit;
     }
@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
         require_once '../dbh-inc.php';
 
-        $query = "UPDATE sales_report SET date = :date, history = :history WHERE id = :id";
+        $query = "UPDATE admin_sales_reports SET date = :date, report = :report WHERE id = :id";
 
         $stmt = $pdo->prepare($query);
         $stmt->bindParam(':id', $id);

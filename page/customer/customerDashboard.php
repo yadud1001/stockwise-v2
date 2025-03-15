@@ -136,7 +136,7 @@
                     <td>$${product.price}</td>
                     <td>${product.quantity}</td>
                     <td>
-                        <button class="update-button" data-name="${product.name}" data-price="${product.price}" data-quantity="${product.quantity}">Update</button>
+                        <button class="product-update-button" data-name="${product.name}" data-price="${product.price}" data-quantity="${product.quantity}">Update</button>
                         <button class="delete-button" data-name="${product.name}">Delete</button>
                     </td>
                 `;
@@ -146,7 +146,7 @@
 
         // Setup update and delete buttons for products
         function setupProductButtons() {
-            const updateButtons = document.querySelectorAll('.update-button');
+            const updateButtons = document.querySelectorAll('.product-update-button');
             const deleteButtons = document.querySelectorAll('.delete-button');
 
             updateButtons.forEach(button => {
@@ -206,7 +206,7 @@
                     <td>${item.date}</td>
                     <td>${item.history}</td>
                     <td>
-                        <button class="update-button" data-id="${item.id}" data-date="${item.date}" data-history="${item.history}">Update</button>
+                        <button class="history-update-button" data-id="${item.id}" data-date="${item.date}" data-history="${item.history}">Update</button>
                         <button class="delete-button" data-id="${item.id}">Delete</button>
                     </td>
                 `;
@@ -216,7 +216,7 @@
 
         // Setup update and delete buttons for history
         function setupHistoryButtons() {
-            const updateButtons = document.querySelectorAll('.update-button');
+            const updateButtons = document.querySelectorAll('.history-update-button');
             const deleteButtons = document.querySelectorAll('.delete-button');
 
             updateButtons.forEach(button => {

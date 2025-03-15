@@ -140,7 +140,6 @@ main.main-container > section.active {
 }
 
 .add-button,
-.update-button,
 .delete-button,
 .settings-button {
     background-color: #61dafb;
@@ -153,7 +152,6 @@ main.main-container > section.active {
 }
 
 .add-button:hover,
-.update-button:hover,
 .delete-button:hover,
 .settings-button:hover {
     background-color: #52b7cd;
@@ -161,7 +159,9 @@ main.main-container > section.active {
 
 .inventory-update-button,
 .customer-update-button,
-.report-update-button {
+.report-update-button,
+.product-update-button,
+.history-update-button {
     background-color: #61dafb;
     color: #282c34;
     padding: 5px 10px;
@@ -173,7 +173,9 @@ main.main-container > section.active {
 
 .inventory-update-button:hover,
 .customer-update-button:hover,
-.report-update-button:hover {
+.report-update-button:hover,
+.product-update-button:hover,
+.history-update-button:hover {
     background-color: #52b7cd;
 }
 

@@ -139,6 +139,44 @@ main.main-container > section.active {
     background-color: #52b7cd;
 }
 
+.add-button,
+.update-button,
+.delete-button,
+.settings-button {
+    background-color: #61dafb;
+    color: #282c34;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+}
+
+.add-button:hover,
+.update-button:hover,
+.delete-button:hover,
+.settings-button:hover {
+    background-color: #52b7cd;
+}
+
+.inventory-update-button,
+.customer-update-button,
+.report-update-button {
+    background-color: #61dafb;
+    color: #282c34;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+}
+
+.inventory-update-button:hover,
+.customer-update-button:hover,
+.report-update-button:hover {
+    background-color: #52b7cd;
+}
+
 .modal {
     display: none;
     position: fixed;

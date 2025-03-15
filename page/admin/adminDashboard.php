@@ -155,7 +155,7 @@
                     <td>$${product.price}</td>
                     <td>${product.quantity}</td>
                     <td>
-                        <button class="update-button" data-name="${product.name}" data-price="${product.price}" data-quantity="${product.quantity}">Update</button>
+                        <button class="inventory-update-button" data-name="${product.name}" data-price="${product.price}" data-quantity="${product.quantity}">Update</button>
                         <button class="delete-button" data-name="${product.name}">Delete</button>
                     </td>
                 `;
@@ -165,7 +165,7 @@
 
         // Setup update and delete buttons for products
         function setupInventoryButtons() {
-            const updateButtons = document.querySelectorAll('.update-button');
+            const updateButtons = document.querySelectorAll('.inventory-update-button');
             const deleteButtons = document.querySelectorAll('.delete-button');
 
             updateButtons.forEach(button => {
@@ -179,9 +179,8 @@
             
             deleteButtons.forEach(button => {
                 button.addEventListener('click', (event) => {
-                    event.stopPropagation();
-
                     const name = button.dataset.name;
+
                     if (confirm(`Are you sure you want to delete this product?`)) {
                         fetch('../../includes/admin_handlers/deleteProduct.php', {
                                 method: 'POST',
@@ -226,7 +225,7 @@
                 row.innerHTML = `
                     <td>${customer.name}</td>
                     <td>
-                        <button class="update-button" data-name="${customer.name}">Update</button>
+                        <button class="customer-update-button" data-name="${customer.name}">Update</button>
                         <button class="delete-button" data-name="${customer.name}">Delete</button>
                     </td>
                 `;
@@ -235,7 +234,7 @@
         }
 
         function setupCustomerButtons() {
-            const updateButtons = document.querySelectorAll('.update-button');
+            const updateButtons = document.querySelectorAll('.customer-update-button');
             const deleteButtons = document.querySelectorAll('.delete-button');
 
             updateButtons.forEach(button => {
@@ -246,10 +245,9 @@
             });
 
             deleteButtons.forEach(button => {
-                button.addEventListener('click', (event) => {
-                    event.stopPropagation();
-                    
+                button.addEventListener('click', (event) => {                    
                     const name = button.dataset.name;
+
                     if (confirm(`Are you sure you want to delete this customer?`)) {
                         fetch('../../includes/admin_handlers/deleteCustomer.php', {
                                 method: 'POST',
@@ -295,7 +293,7 @@
                     <td>${item.date}</td>
                     <td>${item.report}</td>
                     <td>
-                        <button class="update-button" data-id="${item.id}" data-date="${item.date}" data-report="${item.report}">Update</button>
+                        <button class="report-update-button" data-id="${item.id}" data-date="${item.date}" data-report="${item.report}">Update</button>
                         <button class="delete-button" data-id="${item.id}">Delete</button>
                     </td>
                 `;
@@ -305,7 +303,7 @@
 
         // Setup update and delete buttons for sales reports
         function setupReportButtons() {
-            const updateButtons = document.querySelectorAll('.update-button');
+            const updateButtons = document.querySelectorAll('.report-update-button');
             const deleteButtons = document.querySelectorAll('.delete-button');
 
             updateButtons.forEach(button => {
@@ -320,9 +318,8 @@
 
             deleteButtons.forEach(button => {
                 button.addEventListener('click', (event) => {
-                    event.stopPropagation();
-
                     const id = button.dataset.id;
+
                     if (confirm(`Are you sure you want to delete this sales report?`)) {
                         fetch('../../includes/admin_handlers/deleteReport.php', {
                                 method: 'POST',
@@ -430,6 +427,13 @@
             if (event.target == modal) {
                 modal.style.display = "none";
             }
+        });
+
+        // for logout functionality
+        const logoutLink = document.querySelector('.logout-link');
+
+        logoutLink.addEventListener('click', function() {
+            window.location.href = "../../login.php";
         });
 
         // --- Initial Data Fetch ---

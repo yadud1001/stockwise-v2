@@ -156,7 +156,7 @@
                     <td>${product.quantity}</td>
                     <td>
                         <button class="inventory-update-button" data-name="${product.name}" data-price="${product.price}" data-quantity="${product.quantity}">Update</button>
-                        <button class="delete-button" data-name="${product.name}">Delete</button>
+                        <button class="inventory-delete-button" data-name="${product.name}">Delete</button>
                     </td>
                 `;
             });
@@ -166,7 +166,7 @@
         // Setup update and delete buttons for products
         function setupInventoryButtons() {
             const updateButtons = document.querySelectorAll('.inventory-update-button');
-            const deleteButtons = document.querySelectorAll('.delete-button');
+            const deleteButtons = document.querySelectorAll('.inventory-delete-button');
 
             updateButtons.forEach(button => {
                 button.addEventListener('click', () => {
@@ -226,7 +226,7 @@
                     <td>${customer.name}</td>
                     <td>
                         <button class="customer-update-button" data-name="${customer.name}">Update</button>
-                        <button class="delete-button" data-name="${customer.name}">Delete</button>
+                        <button class="customer-delete-button" data-name="${customer.name}">Delete</button>
                     </td>
                 `;
             });
@@ -235,7 +235,7 @@
 
         function setupCustomerButtons() {
             const updateButtons = document.querySelectorAll('.customer-update-button');
-            const deleteButtons = document.querySelectorAll('.delete-button');
+            const deleteButtons = document.querySelectorAll('.customer-delete-button');
 
             updateButtons.forEach(button => {
                 button.addEventListener('click', () => {
@@ -294,7 +294,7 @@
                     <td>${item.report}</td>
                     <td>
                         <button class="report-update-button" data-id="${item.id}" data-date="${item.date}" data-report="${item.report}">Update</button>
-                        <button class="delete-button" data-id="${item.id}">Delete</button>
+                        <button class="report-delete-button" data-id="${item.id}">Delete</button>
                     </td>
                 `;
             });
@@ -304,7 +304,7 @@
         // Setup update and delete buttons for sales reports
         function setupReportButtons() {
             const updateButtons = document.querySelectorAll('.report-update-button');
-            const deleteButtons = document.querySelectorAll('.delete-button');
+            const deleteButtons = document.querySelectorAll('.report-delete-button');
 
             updateButtons.forEach(button => {
                 button.addEventListener('click', () => {

@@ -132,36 +132,18 @@ main.main-container > section.active {
     font-family: 'Poppins', sans-serif;
 }
 
-.add-button:hover,
-.update-button:hover,
-.delete-button:hover,
-.settings-button:hover {
-    background-color: #52b7cd;
-}
-
 .add-button,
-.delete-button,
-.settings-button {
-    background-color: #61dafb;
-    color: #282c34;
-    padding: 5px 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-family: 'Poppins', sans-serif;
-}
-
-.add-button:hover,
-.delete-button:hover,
-.settings-button:hover {
-    background-color: #52b7cd;
-}
-
+.settings-button,
 .inventory-update-button,
 .customer-update-button,
 .report-update-button,
 .product-update-button,
-.history-update-button {
+.history-update-button,
+.inventory-delete-button,
+.customer-delete-button,
+.report-delete-button,
+.product-delete-button,
+.history-delete-button {
     background-color: #61dafb;
     color: #282c34;
     padding: 5px 10px;
@@ -171,11 +153,18 @@ main.main-container > section.active {
     font-family: 'Poppins', sans-serif;
 }
 
+.add-button:hover,
+.settings-button:hover,
 .inventory-update-button:hover,
 .customer-update-button:hover,
 .report-update-button:hover,
 .product-update-button:hover,
-.history-update-button:hover {
+.history-update-button:hover,
+.inventory-delete-button:hover,
+.customer-delete-button:hover,
+.report-delete-button:hover,
+.product-delete-button:hover,
+.history-delete-button:hover {
     background-color: #52b7cd;
 }
 

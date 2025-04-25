@@ -10,7 +10,11 @@
     <body>
         <nav>
             <div class="logo">StockWise</div>
-            <button class="login-btn" onclick="redirectTo('login.php')">Login</button>
+
+            <div class="nav-btns-container">
+            <button class="login-btn" onclick="redirectTo('login.php')">Login |</button>
+            <button class="login-btn" onclick="redirectTo('signup.php')">Signup</button>
+            </div>
         </nav>
 
         <section class="hero">

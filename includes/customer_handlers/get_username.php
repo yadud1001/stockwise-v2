@@ -1,12 +1,12 @@
 <?php
-session_start(); // Start the session to access $_SESSION variables
-require_once '../dbh-inc.php'; // Include your database connection file
+session_start();
+require_once '../dbh-inc.php';
 
-if (isset($_SESSION["user_id"])) { // Corrected: Check for user ID
+if (isset($_SESSION["user_id"])) {
     $userId = $_SESSION["user_id"];
 
     try {
-        $query = "SELECT username FROM users WHERE user_id = :userId"; // Corrected query
+        $query = "SELECT username FROM users WHERE user_id = :userId";
         $stmt = $pdo->prepare($query);
         $stmt->bindParam(':userId', $userId);
         $stmt->execute();
@@ -19,15 +19,15 @@ if (isset($_SESSION["user_id"])) { // Corrected: Check for user ID
             // User not found
             header('Content-Type: application/json');
             echo json_encode(['error' => 'User not found']);
-            http_response_code(404); // Not Found
+            http_response_code(404);
         }
     } catch (PDOException $e) {
         header('Content-Type: application/json');
         echo json_encode(['error' => 'Database error: ' . $e->getMessage()]);
-        http_response_code(500); // Internal Server Error
+        http_response_code(500);
     }
 } else {
     header('Content-Type: application/json');
-    echo json_encode(['error' => 'Session error: User not logged in']); // More specific error
-    http_response_code(401); // Unauthorized
+    echo json_encode(['error' => 'Session error: User not logged in']);
+    http_response_code(401);
 }

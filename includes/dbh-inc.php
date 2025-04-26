@@ -1,5 +1,4 @@
 <?php
-
 $dsn = 'mysql:host=localhost;dbname=stockwise_project';
 $dbUsername = 'root';
 $dbPassword = '';
@@ -7,6 +6,10 @@ $dbPassword = '';
 try {
     $pdo = new PDO($dsn, $dbUsername, $dbPassword);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
 } catch (PDOException $e) {
-    echo 'Connection failed: ' . $e->getMessage();
+    $error_message = "Database connection failed: " . $e->getMessage();
+    error_log($error_message, 0);
+    echo "Database connection error: " . $error_message;
+    exit();
 }

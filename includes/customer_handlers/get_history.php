@@ -6,7 +6,7 @@ if (isset($_SESSION["user_id"])) {
     $userId = $_SESSION["user_id"];
 
     try {
-        $query = "SELECT order_date, order_details FROM order_history WHERE customer_id = :userId ORDER BY order_date DESC";
+        $query = "SELECT order_date, order_details FROM order_history WHERE customer_id = :userId ORDER BY order_date ASC";
         $stmt = $pdo->prepare($query);
         $stmt->bindParam(':userId', $userId);
         $stmt->execute();

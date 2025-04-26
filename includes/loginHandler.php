@@ -1,5 +1,5 @@
 <?php
-session_start(); // Start the session *once* at the beginning
+session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == 'POST') {
     $username = $_POST['username'];

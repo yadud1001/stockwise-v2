@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StockWise| AdminDashboard</title>
+    <title>Rogen N. Marcy Store| AdminDashboard</title>
     <link rel="stylesheet" href="../../public/styles/main.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="top-nav">
-        <div class="logo">StockWise (Admin)</div>
+        <div class="logo">Rogen N. Marcy Store (Admin)</div>
     </div>
 
     <aside class="sidebar">
@@ -46,6 +46,34 @@
                     </thead>
                     <tbody id="inventory-tbody"></tbody>
                 </table>
+            </div>
+
+            <button id="add-product-button" class="button primary">Add Product</button>
+
+            <div id="add-product-modal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <h3>Add New Product</h3>
+                    <form id="add-product-form">
+                        <div class="form-group">
+                            <label for="product-name">Product Name:</label>
+                            <input type="text" id="product-name" name="product-name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="product-description">Description:</label>
+                            <input type="text" id="product-description" name="product-description" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="product-price">Price:</label>
+                            <input type="number" id="product-price" name="product-price" required min="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="product-stock">Stock Quantity:</label>
+                            <input type="number" id="product-stock" name="product-stock" required min="0">
+                        </div>
+                        <button type="submit" class="button primary">Add Product</button>
+                    </form>
+                </div>
             </div>
         </section>
 

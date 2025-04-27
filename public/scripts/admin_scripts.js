@@ -134,6 +134,89 @@ document.addEventListener('DOMContentLoaded', function() {
         window.location.href = "../../login.php";
     });
 
+    // --- Add Product Functionality (Modal) ---
+    // Get the modal and button
+    const modal = document.getElementById('add-product-modal');
+    const btn = document.getElementById('add-product-button');
+    const span = document.querySelector('.close');
+
+    if (btn && modal && span) { // check if elements exist
+        // Open the modal
+        btn.addEventListener('click', function() {
+            modal.style.display = 'block';
+        });
+
+        // Close the modal
+        span.addEventListener('click', function() {
+            modal.style.display = 'none';
+        });
+
+        // Close the modal when clicking outside
+        window.addEventListener('click', function(event) {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+
+        const addProductForm = document.getElementById('add-product-form');
+        if (addProductForm) {
+            addProductForm.addEventListener('submit', function(event) {
+                event.preventDefault(); // Prevent the default form submission
+
+                const productName = document.getElementById('product-name').value;
+                const productDescription = document.getElementById('product-description').value;
+                const productPrice = document.getElementById('product-price').value;
+                const productStock = document.getElementById('product-stock').value;
+
+                // Basic validation (you can add more robust validation)
+                if (!productName || !productPrice || !productStock || !productDescription) {
+                    alert('Please fill in all fields.');
+                    return;
+                }
+                if (productPrice < 0 || productStock < 0) {
+                    alert('Price and stock must be positive values.');
+                    return;
+                }
+
+                const formData = new URLSearchParams();
+                formData.append('product_name', productName);
+                formData.append('product_description', productDescription);
+                formData.append('product_price', productPrice);
+                formData.append('product_stock', productStock);
+
+                fetch('../../includes/fetch_handlers/add_product.php', { // New PHP file
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded', // Important for sending form data
+                    },
+                    body: formData,
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.error) {
+                        alert('Error adding product: ' + data.error);
+                        console.error('Error adding product:', data.error);
+                    } else {
+                        alert('Product added successfully!');
+                        fetchInventoryData(); // Refresh the inventory table
+                        addProductForm.reset(); // Clear the form
+                        modal.style.display = 'none'; // Hide modal on success
+                    }
+                })
+                .catch(error => {
+                    alert('Error adding product: ' + error.message);
+                    console.error('Error adding product:', error);
+                });
+            });
+        }
+    }
+    // --- End Add Product Functionality (Modal) ---
+
     getUserData();
     fetchInventoryData();
     fetchSalesReportsData();

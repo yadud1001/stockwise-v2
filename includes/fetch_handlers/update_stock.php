@@ -4,10 +4,8 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-// Include the database connection file
-require 'dbh-inc.php';
+require '../dbh-inc.php';
 
-// Check if the request method is POST
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     $message = "Invalid request method. Use POST.";
     error_log($message, 0);

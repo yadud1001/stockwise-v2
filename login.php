@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>StockWise| Login</title>
-    <link rel="stylesheet" href="public/form.css">
+    <link rel="stylesheet" href="public/styles/form.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="login-container">
         <h2>Login</h2>
-        <form action="includes/loginHandler.php" method="post">
+        <form action="includes/form_handlers/loginHandler.php" method="post">
             <div class="input-group">
                 <label for="username">Username:</label>
                 <input type="text" id="username" name="username" autocomplete="username" required>

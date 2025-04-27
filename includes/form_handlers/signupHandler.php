@@ -19,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST') {
     }
 
     try {
-        require_once 'dbh-inc.php';
+        require_once '../dbh-inc.php';
 
         // Check if the username already exists
         $checkUserQuery = "SELECT COUNT(*) FROM users WHERE username = :username;";
@@ -50,10 +50,10 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST') {
 
         // Redirect to the appropriate dashboard
         if ($role === 'admin') {
-            header('Location: ../view/admin/adminDashboard.php');
+            header('Location: ../../view/admin/adminDashboard.php');
             die();
         } elseif ($role === 'customer') {
-            header('Location: ../view/customer/customerDashboard.php');
+            header('Location: ../../view/customer/customerDashboard.php');
             die();
         } else {
             die("Invalid user role after signup."); //Should not happen, but good to have.
@@ -75,6 +75,6 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST') {
         }
     }
 } else {
-    header('Location: ../signup.php');
+    header('Location: ../../signup.php');
     die();
 }

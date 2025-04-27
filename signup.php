@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>StockWise| Sign Up</title>
-    <link rel="stylesheet" href="public/form.css">
+    <link rel="stylesheet" href="public/styles/form.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
     <div class="signup-container">
         <h2>Sign Up</h2>
-        <form action="includes/signupHandler.php" method="post">
+        <form action="includes/form_handlers/signupHandler.php" method="post">
             <div class="input-group">
                 <label for="username">Username:</label>
                 <input type="text" id="username" name="username" autocomplete="username" required>

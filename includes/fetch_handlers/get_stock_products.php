@@ -1,5 +1,5 @@
 <?php
-require_once 'dbh-inc.php';
+require_once '../dbh-inc.php';
 
 try {
     $query = "SELECT product_id, name, description, price, stock_quantity FROM products WHERE stock_quantity > 0";

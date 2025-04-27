@@ -47,6 +47,34 @@
                     <tbody id="inventory-tbody"></tbody>
                 </table>
             </div>
+
+            <button id="add-product-button" class="button primary">Add Product</button>
+
+            <div id="add-product-modal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <h3>Add New Product</h3>
+                    <form id="add-product-form">
+                        <div class="form-group">
+                            <label for="product-name">Product Name:</label>
+                            <input type="text" id="product-name" name="product-name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="product-description">Description:</label>
+                            <input type="text" id="product-description" name="product-description" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="product-price">Price:</label>
+                            <input type="number" id="product-price" name="product-price" required min="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="product-stock">Stock Quantity:</label>
+                            <input type="number" id="product-stock" name="product-stock" required min="0">
+                        </div>
+                        <button type="submit" class="button primary">Add Product</button>
+                    </form>
+                </div>
+            </div>
         </section>
 
         <section id="sales-reports">

@@ -7,6 +7,7 @@ body {
   color: #eee;
 }
 
+/* --- Nav Bar Styles --- */
 .top-nav {
   background-color: #282c34;
   padding: 20px 30px;
@@ -81,6 +82,7 @@ body {
   background-color: #4b515e;
 }
 
+/* --- Main Section Styles --- */
 .main-container {
   flex-grow: 1;
   padding: 20px;
@@ -133,6 +135,7 @@ main.main-container > section.active {
   background-color: #52b7cd;
 }
 
+/* --- Display Product Styles --- */
 #stock-products-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -190,6 +193,113 @@ main.main-container > section.active {
 
 .product-card button:hover {
   background-color: #52b7cd;
+}
+
+/* --- Add Product Form Styles --- */
+#add-product-form-container {
+  background-color: #282c34;
+  padding: 20px;
+  margin: 50px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#add-product-form h3 {
+  margin-bottom: 20px;
+  color: #61dafb;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  color: #eee;
+  font-weight: bold;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #4b515e;
+  border-radius: 5px;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+  background-color: #3e4451;
+  color: #eee;
+}
+
+.form-group input:focus {
+  border-color: #61dafb;
+  outline: none;
+  background-color: #3e4451;
+  color: #eee;
+}
+
+.button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+  font-family: "Poppins", sans-serif;
+}
+
+.button.primary {
+  background-color: #61dafb;
+  color: #282c34;
+}
+
+.button.primary:hover {
+  background-color: #52b7cd;
+}
+
+/* --- Modal Styles --- */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.modal-content {
+  background-color: #282c34;
+  margin: 10% auto;
+  padding: 20px;
+  border-radius: 8px;
+  width: 50%;
+  position: relative;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+  color: #eee;
+}
+
+.modal-content .close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  color: #aaa;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.modal-content .close:hover,
+.modal-content .close:focus {
+  color: #eee;
+  text-decoration: none;
+}
+
+#add-product-button {
+  margin-top: 20px;
+  margin-left: 40px;
 }
 
 .error {

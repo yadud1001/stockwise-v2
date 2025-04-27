@@ -4,13 +4,17 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>StockWise| Home</title>
-        <link rel="stylesheet" href="public/index.css">
+        <link rel="stylesheet" href="public/styles/index.css">
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
     </head>
     <body>
         <nav>
             <div class="logo">StockWise</div>
-            <button class="login-btn" onclick="redirectTo('login.php')">Login</button>
+
+            <div class="nav-btns-container">
+            <button class="login-btn" onclick="redirectTo('login.php')">Login |</button>
+            <button class="login-btn" onclick="redirectTo('signup.php')">Signup</button>
+            </div>
         </nav>
 
         <section class="hero">

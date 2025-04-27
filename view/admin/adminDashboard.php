@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StockWise| AdminDashboard</title>
+    <title>Rogen N. Marcy Store| AdminDashboard</title>
     <link rel="stylesheet" href="../../public/styles/main.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="top-nav">
-        <div class="logo">StockWise (Admin)</div>
+        <div class="logo">Rogen N. Marcy Store (Admin)</div>
     </div>
 
     <aside class="sidebar">
